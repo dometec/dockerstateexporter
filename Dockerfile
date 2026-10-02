@@ -12,6 +12,7 @@ COPY *.go ./
 RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -trimpath -ldflags="-w -s" -o /go/bin/docker_state_exporter
 
 FROM alpine:3
+RUN apk upgrade --no-cache
 COPY --from=builder /go/bin/docker_state_exporter /go/bin/docker_state_exporter
 EXPOSE 8080
 ENTRYPOINT ["/go/bin/docker_state_exporter"]
