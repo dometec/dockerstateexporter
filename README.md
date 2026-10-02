@@ -68,15 +68,23 @@ So, please note that if you set the scrape_interval of prometheus to less than o
 
 ## Development building and running
 
-I am running this application on Docker (linux/amd64).
-I have not tested it in any other environment.
+The image `dometec/dockerstateexporter` is published for linux/amd64 and linux/arm64 (e.g. AWS Graviton).
+Dependencies are pinned in `go.mod`/`go.sum`.
 
 ### Build
 
+Local image for the current platform:
+
 ```bash
-git clone https://github.com/karugaru/docker_state_exporter
-cd docker_state_exporter
-sudo docker build -t docker_state_exporter_test .
+docker build -t dockerstateexporter:test .
+```
+
+Multi-architecture image pushed to Docker Hub (needs `docker buildx` with a `docker-container` builder;
+Go cross-compiles, no QEMU emulation needed):
+
+```bash
+docker buildx create --name multiarch --driver docker-container --use   # once
+docker buildx build --platform linux/amd64,linux/arm64 -t dometec/dockerstateexporter:<version> --push .
 ```
 
 ### Run

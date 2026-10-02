@@ -1,0 +1,1 @@
+Per ora parcheggiato in quando soluzione non ottimale, lo stato 429 ritornato ai dispositivi che accendono oltre il limite del server fa si che il client riprovi dopo 24 ore (al prossimo polling)
